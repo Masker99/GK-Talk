@@ -1,6 +1,6 @@
 package com.rookie.gktalk.controller;
 
-import com.rookie.gktalk.services.UserService;
+import com.rookie.gktalk.services.Impl.UserServiceImpl;
 import com.rookie.gktalk.utils.common.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +13,7 @@ import java.util.Map;
 @RestController
 public class FileController {
     @Autowired
-    UserService userService;
+    UserServiceImpl userService;
 
     @GetMapping("/getAvatar")
     public Object getAvatar(@RequestBody Map<String,String> request,HttpServletResponse response){

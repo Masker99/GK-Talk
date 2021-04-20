@@ -12,4 +12,5 @@ public interface UserService {
     User selectUserByID(String ID);
     User updateUser(String username, String sex,String email,String pitcherPath,String password);
     String getUserAvatar(String username);
+    User getUserFromToken(String token);
 }

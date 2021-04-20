@@ -7,6 +7,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.rookie.gktalk.pojo.User;
 import com.rookie.gktalk.utils.exception.WebException;
+import com.rookie.gktalk.utils.validate.DataAssert;
 
 public class TokenUtil {
     private static String SECRET = "com.rookie.gktalk.";
@@ -36,5 +37,11 @@ public class TokenUtil {
         }
 
         return new Result(200,"认证成功",null);
+    }
+
+    public static String getAudience(String token){
+        String username = JWT.decode(token).getAudience().get(0);
+        DataAssert.notEmpty(username,"token丢失了");
+        return username;
     }
 }

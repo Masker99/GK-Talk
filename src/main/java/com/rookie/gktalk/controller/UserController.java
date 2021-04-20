@@ -1,7 +1,7 @@
 package com.rookie.gktalk.controller;
 
 import com.rookie.gktalk.pojo.User;
-import com.rookie.gktalk.services.UserService;
+import com.rookie.gktalk.services.Impl.UserServiceImpl;
 import com.rookie.gktalk.utils.annotation.PassToken;
 import com.rookie.gktalk.utils.annotation.UserLoginToken;
 import com.rookie.gktalk.utils.bcrypt.BCryptPasswordEncoder;
@@ -21,7 +21,7 @@ import java.util.Map;
 @RestController
 public class UserController {
     @Autowired
-    UserService userService;
+    UserServiceImpl userService;
 
     @PostMapping("/register")
     public Object registerUser(@RequestBody Map<String,String> RequestBody) {
@@ -46,6 +46,7 @@ public class UserController {
         return "注册成功!";
     }
 
+    @UserLoginToken
     @PostMapping("/avatar")
     public Object avatarUpload(@RequestParam("file")MultipartFile multipartFile,HttpServletRequest request){
         String username = request.getParameter("username");
@@ -76,6 +77,7 @@ public class UserController {
         return new Result(200,"登陆成功",token);
     }
 
+    @UserLoginToken
     @PostMapping("/modifyUserPassword")
     public Object modifyUserInformation(@RequestBody Map<String,String> request){
         String username = request.get("username");

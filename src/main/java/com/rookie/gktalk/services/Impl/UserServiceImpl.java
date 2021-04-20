@@ -4,7 +4,9 @@ import com.rookie.gktalk.mapper.UserMapper;
 import com.rookie.gktalk.pojo.User;
 import com.rookie.gktalk.services.UserService;
 import com.rookie.gktalk.utils.bcrypt.BCryptPasswordEncoder;
+import com.rookie.gktalk.utils.common.TokenUtil;
 import com.rookie.gktalk.utils.exception.WebException;
+import com.rookie.gktalk.utils.validate.DataAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -76,5 +78,14 @@ public class UserServiceImpl implements UserService {
         }
 
         return user.getPicpath();
+    }
+
+    @Override
+    public User getUserFromToken(String token){
+        String username = TokenUtil.getAudience(token);
+        User user = userMapper.selectUser(username,null,null);
+        DataAssert.notNull(user,"未能匹配到该用户!");
+
+        return user;
     }
 }
