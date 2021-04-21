@@ -3,20 +3,28 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rookie.gktalk.mapper.ArticleMapper">
-    <resultMap id="ArticleResult" type="article">
-        <id property="artic_id" column="artic_id"/>
-    </resultMap>
-
     <insert id="addOne" parameterType="article">
         insert article(artic_id,artic_title,artic_content,artic_author,artic_date) values (#{artic_id},#{artic_title},#{artic_content},#{artic_author},#{artic_date});
     </insert>
 
-    <select id="selectOneByArticleID" parameterType="int">
+    <select id="selectOneByArticleID" parameterType="int" resultType="Article">
         select * from article where artic_id = #{artic_id};
     </select>
 
-    <select id="selectAll">
-        select a.artic_id,a.artic_title,a.artic_content,u.name,a.artic_date from
+    <resultMap id="ArticleResult" type="ArticleDto">
+        <id property="article_id" column="artic_id"/>
+        <result property="article_title" column="artic_title"/>
+        <result property="article_content" column="artic_content"/>
+        <result property="article_date" column="artic_date"/>
+        <association property="article_author" javaType="AuthorDto">
+            <id property="author_id" column="userID"/>
+            <result property="author_name" column="name"/>
+            <result property="author_picpath" column="picpath"/>
+        </association>
+    </resultMap>
+
+    <select id="selectAll" resultMap="ArticleResult">
+        select a.artic_id,a.artic_title,a.artic_content,u.userID,u.name,a.artic_date from
         article a inner join user u
         on a.artic_author = u.userID;
     </select>

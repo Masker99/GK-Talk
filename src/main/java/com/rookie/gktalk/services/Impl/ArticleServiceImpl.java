@@ -19,25 +19,14 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     UserServiceImpl userService;
 
-    public Article storeArticle(Article article){
-        articleMapper.addOne(article);
+    public int storeArticle(Article article){
+        int result = articleMapper.addOne(article);
 
-        return articleMapper.selectOneByArticleID(article.getArtic_id());
+        return result;
     }
 
     public List<ArticleDto> getAllArticles(){
-        List<Article> articleList = articleMapper.selectAll();
-        List<ArticleDto> articleDtoList = new ArrayList<>();
-        for (Article article : articleList) {
-            ArticleDto articleDto = new ArticleDto();
-            articleDto.setArticle_id(article.getArtic_id());
-            articleDto.setArticle_title(article.getArtic_title());
-            articleDto.setArticle_author(userService.getAuthorDto(String.valueOf(article.getArtic_author())));
-            articleDto.setArticle_date(article.getArtic_date());
-            articleDtoList.add(articleDto);
-        }
-
-        return articleDtoList;
+        return articleMapper.selectAll();
     }
 
 }

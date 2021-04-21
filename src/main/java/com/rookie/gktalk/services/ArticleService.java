@@ -7,6 +7,6 @@ import com.rookie.gktalk.pojo.Article;
 import java.util.List;
 
 public interface ArticleService {
-    Article storeArticle(Article article);
+    int storeArticle(Article article);
     List<ArticleDto> getAllArticles();
 }
