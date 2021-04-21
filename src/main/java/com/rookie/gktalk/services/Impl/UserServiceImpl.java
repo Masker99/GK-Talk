@@ -1,5 +1,6 @@
 package com.rookie.gktalk.services.Impl;
 
+import com.rookie.gktalk.dto.AuthorDto;
 import com.rookie.gktalk.mapper.UserMapper;
 import com.rookie.gktalk.pojo.User;
 import com.rookie.gktalk.services.UserService;
@@ -87,5 +88,16 @@ public class UserServiceImpl implements UserService {
         DataAssert.notNull(user,"未能匹配到该用户!");
 
         return user;
+    }
+
+    @Override
+    public AuthorDto getAuthorDto(String author_id){
+        User user = userMapper.selectUser(null,null,author_id);
+        AuthorDto authorDto = new AuthorDto();
+        authorDto.setAuthor_id(user.getUserID());
+        authorDto.setAuthor_name(user.getName());
+        authorDto.setAuthor_picpath(user.getPicpath());
+
+        return authorDto;
     }
 }

@@ -1,5 +1,6 @@
 package com.rookie.gktalk.services;
 
+import com.rookie.gktalk.dto.AuthorDto;
 import com.rookie.gktalk.pojo.User;
 
 import java.util.Date;
@@ -13,4 +14,5 @@ public interface UserService {
     User updateUser(String username, String sex,String email,String pitcherPath,String password);
     String getUserAvatar(String username);
     User getUserFromToken(String token);
+    AuthorDto getAuthorDto(String author_id);
 }

@@ -4,14 +4,9 @@ import com.rookie.gktalk.pojo.Article;
 import com.rookie.gktalk.pojo.User;
 import com.rookie.gktalk.services.Impl.ArticleServiceImpl;
 import com.rookie.gktalk.services.Impl.UserServiceImpl;
-import com.rookie.gktalk.utils.common.CookiesUtil;
 import com.rookie.gktalk.utils.common.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -40,5 +35,10 @@ public class ArticleController {
         articleService.storeArticle(article);
 
         return "成功发表文章!";
+    }
+
+    @GetMapping("/articles")
+    public Object getArticleList(){
+        return new Result(200,"成功获取文章列表",articleService.getAllArticles());
     }
 }
