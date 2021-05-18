@@ -11,4 +11,5 @@ public interface ArticleMapper {
     int addOne(Article article);
     Article selectOneByArticleID(int artic_id);
     List<ArticleDto> selectAll();
+    int updateOne(Article article);
 }

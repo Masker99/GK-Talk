@@ -8,7 +8,7 @@
     </insert>
 
     <select id="selectOneByArticleID" parameterType="int" resultType="Article">
-        select * from article where artic_id = #{artic_id};
+        select * from article where artic_id = #{artic_id} and artic_status = 0;
     </select>
 
     <resultMap id="ArticleResult" type="ArticleDto">
@@ -26,6 +26,18 @@
     <select id="selectAll" resultMap="ArticleResult">
         select a.artic_id,a.artic_title,a.artic_content,u.userID,u.name,a.artic_date from
         article a inner join user u
-        on a.artic_author = u.userID;
+        on a.artic_author = u.userID
+        where artic_status = 0;
     </select>
+
+    <update id="updateOne" parameterType="Article">
+        update article
+        <set>
+            <if test="artic_title != null">artic_title = #{artic_title},</if>
+            <if test="artic_content != null">artic_content = #{artic_content},</if>
+            <if test="artic_date != null">artic_date = #{artic_date},</if>
+            <if test="artic_status != null">artic_status = #{artic_status}</if>
+        </set>
+        where artic_id = #{artic_id};
+    </update>
 </mapper>

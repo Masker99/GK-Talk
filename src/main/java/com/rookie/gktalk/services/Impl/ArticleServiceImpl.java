@@ -25,8 +25,25 @@ public class ArticleServiceImpl implements ArticleService {
         return result;
     }
 
+    public Article searchArticle(int artic_id){
+        return articleMapper.selectOneByArticleID(artic_id);
+    }
+
     public List<ArticleDto> getAllArticles(){
         return articleMapper.selectAll();
     }
 
+    public int deleteArticle(int artic_id){
+        Article article = new Article();
+        article.setArtic_id(artic_id);
+
+        article.setArtic_status(1);
+
+        int success = articleMapper.updateOne(article);
+        return success;
+    }
+
+    public int updateArticle(Article article){
+        return articleMapper.updateOne(article);
+    }
 }

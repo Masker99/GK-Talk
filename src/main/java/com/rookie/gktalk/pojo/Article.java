@@ -14,4 +14,6 @@ public class Article {
 
     @DateTimeFormat(pattern = "yyyy-mm-dd HH:mm:ss")
     private Date artic_date;
+
+    private int artic_status;//0未正常，1为注销
 }
