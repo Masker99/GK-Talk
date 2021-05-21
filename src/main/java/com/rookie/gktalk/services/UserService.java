@@ -3,10 +3,8 @@ package com.rookie.gktalk.services;
 import com.rookie.gktalk.dto.AuthorDto;
 import com.rookie.gktalk.pojo.User;
 
-import java.util.Date;
-
 public interface UserService {
-    User addUser(String username,String password,String email,String sex);
+    User addUser(String username,String password,String email);
     User selectUser(String username,String email,String userID);
     User selectUserByUserName(String username);
     User selectUserByEmail(String email);

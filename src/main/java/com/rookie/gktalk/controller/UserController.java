@@ -4,18 +4,19 @@ import com.rookie.gktalk.pojo.User;
 import com.rookie.gktalk.services.Impl.UserServiceImpl;
 import com.rookie.gktalk.utils.annotation.UserLoginToken;
 import com.rookie.gktalk.utils.bcrypt.BCryptPasswordEncoder;
-import com.rookie.gktalk.utils.common.FileUtil;
-import com.rookie.gktalk.utils.common.Result;
-import com.rookie.gktalk.utils.common.StringUtil;
-import com.rookie.gktalk.utils.common.TokenUtil;
+import com.rookie.gktalk.utils.common.*;
 import com.rookie.gktalk.utils.exception.WebException;
 import com.rookie.gktalk.utils.validate.DataAssert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Calendar;
 import java.util.Map;
 
 @RestController
@@ -28,7 +29,6 @@ public class UserController {
         String userName = RequestBody.get("username");
         String password = RequestBody.get("password");
         String email = RequestBody.get("email");
-        String sex = RequestBody.get("sex");
         String invitationCode = RequestBody.get("invitationCode");
 
         DataAssert.notEmpty(userName,"请输入用户名!");
@@ -48,7 +48,18 @@ public class UserController {
             throw new WebException("邀请码错误!");
         }
 
-        userService.addUser(userName,password,email,sex);
+        String receiverMail = (String) httpSession.getAttribute("receiver");
+        if(!receiverMail.equals(email)){
+            throw new WebException("注册邮箱错误!");
+        }
+
+        Calendar deadTime = (Calendar) httpSession.getAttribute("deadTime");
+        Calendar currentTime = TimeUtil.getCurrentTime();
+        if(!TimeUtil.ifValid(currentTime,deadTime)){
+            throw new WebException("邀请码无效!");
+        }
+
+        userService.addUser(userName,password,email);
 
         return "注册成功!";
     }
@@ -107,5 +118,35 @@ public class UserController {
         userService.updateUser(username,null,null,null,new BCryptPasswordEncoder().encode(password));
 
         return "修改成功";
+    }
+
+    @PostMapping("/verifyUser")
+    public Object retrievePasswordFirstStep(@RequestParam("captcha")String captcha,
+                                            @RequestParam("email")String email,
+                                            HttpServletRequest httpServletRequest){
+        DataAssert.notEmpty(captcha,"请输入验证码！");
+        DataAssert.notEmpty(email,"请输入注册的邮箱！");
+
+        HttpSession httpSession = httpServletRequest.getSession();
+        String receiverMail =(String) httpSession.getAttribute("receiverMail");
+        String securityCode =(String) httpSession.getAttribute("securityCode");
+
+        DataAssert.notNull(userService.selectUserByEmail(email),"该邮箱未注册用户！");
+
+        if (!email.equals(receiverMail)){
+            throw new WebException("邮箱错误！");
+        }
+
+        if (!captcha.equalsIgnoreCase(securityCode)){
+            throw new WebException("验证码错误！");
+        }
+
+        Calendar deadTime = (Calendar) httpSession.getAttribute("deadTime");
+        Calendar currentTime = TimeUtil.getCurrentTime();
+        if(!TimeUtil.ifValid(currentTime,deadTime)){
+            throw new WebException("安全码无效!");
+        }
+
+        return new Result(200,"身份验证成功",null);
     }
 }

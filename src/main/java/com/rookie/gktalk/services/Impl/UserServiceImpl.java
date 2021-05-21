@@ -19,10 +19,9 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     @Override
-    public User addUser(String username, String password, String email,String sex) {
+    public User addUser(String username, String password, String email) {
         User user = new User();
         user.setName(username);
-        user.setSex(sex);
         user.setEmail(email);
         user.setPassword(new BCryptPasswordEncoder().encode(password));
 
