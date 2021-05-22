@@ -41,7 +41,9 @@ public class EmailController {
     }
 
     @GetMapping("/verification")
-    public Object postVerificationEmail(@RequestParam("email") String receiver,HttpServletRequest request){
+    public Object postVerificationEmail(@RequestBody Map<String,String> body,HttpServletRequest request){
+        String receiver = body.get("email");
+
         DataAssert.isTrue(StringUtil.isValid(receiver,StringUtil.EMAIL_REGEX),"请输入正确的邮件！");
 
         String securityCode = mailService.sendTemplateMail(receiver,"mail/retrieve");
