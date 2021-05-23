@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rookie.gktalk.mapper.UserEnjoyMapper">
+    <insert id="addOneEnjoyment" parameterType="enjoyment">
+        insert into user_enjoy (user_id,art_id,status) values
+            (#{user_id},#{article_id},#{status})
+    </insert>
+
+    <update id="cancelEnjoyment">
+        update set user_enjoy set status=0
+            where user_id=#{user_id} and art_id=#{article_id}
+    </update>
+
+    <select id="countNumForArticle">
+        select count (*) from user_enjoy
+            where art_id = #{articleId} and status = 1
+    </select>
+</mapper>
