@@ -12,4 +12,9 @@ public class Enjoyment {
     //点赞状态，1为点赞，0为取消点赞
     @Value("#{1}")
     private int status;
+
+    public Enjoyment(int articleId,int userId){
+        this.article_id = articleId;
+        this.user_id = userId;
+    }
 }

@@ -12,4 +12,9 @@ public class StoreUp {
     //收藏状态,1为收藏，0为取消收藏
     @Value("${some.key:1}")
     private int status;
+
+    public StoreUp(int articleId,int userId){
+        this.art_id = articleId;
+        this.user_id = userId;
+    }
 }
