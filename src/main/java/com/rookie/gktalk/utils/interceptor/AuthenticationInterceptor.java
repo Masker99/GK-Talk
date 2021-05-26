@@ -41,7 +41,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         if(method.isAnnotationPresent(UserLoginToken.class)){
             UserLoginToken userLoginToken = method.getAnnotation(UserLoginToken.class);
             if (userLoginToken.required()){
-                if (token == null && token.equals("")){
+                if (token == null || token.equals("")){
                     throw new WebException("token不存在");
                 }
 
