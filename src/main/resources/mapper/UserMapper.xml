@@ -28,4 +28,16 @@
         </set>
         where name = #{name};
     </update>
+
+    <select id="selectUserList" resultType="userDto">
+        select userID,name,status,score from user
+    </select>
+
+    <update id="addScore">
+        update user set score = score + #{score} where userID = #{userID}
+    </update>
+
+    <update id="reduceScore">
+        update user set score -= #{score} where userID = #{userID}
+    </update>
 </mapper>

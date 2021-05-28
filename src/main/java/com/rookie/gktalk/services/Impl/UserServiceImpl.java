@@ -1,6 +1,7 @@
 package com.rookie.gktalk.services.Impl;
 
 import com.rookie.gktalk.dto.AuthorDto;
+import com.rookie.gktalk.dto.UserDto;
 import com.rookie.gktalk.mapper.UserMapper;
 import com.rookie.gktalk.pojo.User;
 import com.rookie.gktalk.services.UserService;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -98,5 +100,20 @@ public class UserServiceImpl implements UserService {
         authorDto.setAuthor_picpath(user.getPicpath());
 
         return authorDto;
+    }
+
+    @Override
+    public List<UserDto> getUsers(){
+        return userMapper.selectUserList();
+    }
+
+    @Override
+    public int addScore(int userID,int score){
+        return userMapper.addScore(userID, score);
+    }
+
+    @Override
+    public int reduceScore(int userID,int score){
+        return userMapper.reduceScore(userID, score);
     }
 }

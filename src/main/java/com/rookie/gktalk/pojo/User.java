@@ -1,6 +1,7 @@
 package com.rookie.gktalk.pojo;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -23,6 +24,7 @@ public class User {
     private String password;
 
     //用户状态
+    @Value("#{1}")
     private String status;//0 正常,1 无效
 
     //注册时间
@@ -37,5 +39,6 @@ public class User {
     private String picpath;
 
     //积分
+    @Value("#{0}")
     private Integer score;
 }
