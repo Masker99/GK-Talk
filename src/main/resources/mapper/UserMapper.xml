@@ -40,4 +40,8 @@
     <update id="reduceScore">
         update user set score -= #{score} where userID = #{userID}
     </update>
+
+    <update id="deleteUser">
+        update user set status = 1 where userID = #{userID}
+    </update>
 </mapper>

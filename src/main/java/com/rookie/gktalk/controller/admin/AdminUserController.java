@@ -36,5 +36,10 @@ public class AdminUserController {
         return new Result(200,"成功修改用户积分",null);
     }
 
+    @DeleteMapping("/user/{userID}/delete")
+    public Object deleteUser(@PathVariable("userID")int userId){
+        userService.deleteUser(userId);
 
+        return new Result(200,"成功删除用户",null);
+    }
 }

@@ -14,4 +14,5 @@ public interface UserMapper {
     List<UserDto> selectUserList();
     int addScore(int userID,int score);
     int reduceScore(int userID,int score);
+    int deleteUser(int userID);
 }

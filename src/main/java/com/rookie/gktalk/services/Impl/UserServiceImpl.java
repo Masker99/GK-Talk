@@ -116,4 +116,9 @@ public class UserServiceImpl implements UserService {
     public int reduceScore(int userID,int score){
         return userMapper.reduceScore(userID, score);
     }
+
+    @Override
+    public int deleteUser(int userID){
+        return userMapper.deleteUser(userID);
+    }
 }

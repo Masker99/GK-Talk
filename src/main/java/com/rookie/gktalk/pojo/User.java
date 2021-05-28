@@ -24,7 +24,7 @@ public class User {
     private String password;
 
     //用户状态
-    @Value("#{1}")
+    @Value("#{0}")
     private String status;//0 正常,1 无效
 
     //注册时间

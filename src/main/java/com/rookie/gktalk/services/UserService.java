@@ -19,4 +19,5 @@ public interface UserService {
     List<UserDto> getUsers();
     int addScore(int userID,int score);
     int reduceScore(int userID,int score);
+    int deleteUser(int userID);
 }
