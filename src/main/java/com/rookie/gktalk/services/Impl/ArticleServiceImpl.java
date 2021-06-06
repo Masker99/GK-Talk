@@ -46,6 +46,6 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<ArticleDto> getUnapprovedArticles() {
-        return null;
+        return articleMapper.selectUnapprovedArticles();
     }
 }
