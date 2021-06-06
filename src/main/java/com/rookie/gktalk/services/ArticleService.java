@@ -11,4 +11,5 @@ public interface ArticleService {
     List<ArticleDto> getAllArticles();
     int deleteArticle(int artic_id);
     int updateArticle(Article article);
+    List<ArticleDto> getUnapprovedArticles();
 }

@@ -1,6 +1,7 @@
 package com.rookie.gktalk.pojo;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -15,5 +16,6 @@ public class Article {
     @DateTimeFormat(pattern = "yyyy-mm-dd HH:mm:ss")
     private Date artic_date;
 
-    private int artic_status;//0未正常，1为注销
+    @Value("#{2}")
+    private int artic_status;//0为正常，1为注销，2为未审核
 }

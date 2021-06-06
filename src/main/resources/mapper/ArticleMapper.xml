@@ -40,4 +40,6 @@
         </set>
         where artic_id = #{artic_id};
     </update>
+
+
 </mapper>
