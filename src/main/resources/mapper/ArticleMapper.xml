@@ -24,7 +24,7 @@
     </resultMap>
 
     <select id="selectAll" resultMap="ArticleResult">
-        select a.artic_id,a.artic_title,a.artic_content,u.userID,u.name,a.artic_date from
+        select a.artic_id,a.artic_title,a.artic_content,u.userID,u.name,a.artic_date,u.picpath from
         article a inner join user u
         on a.artic_author = u.userID
         where artic_status = 0;
@@ -46,5 +46,12 @@
         article a inner join user u
         on a.artic_author = u.userID
         where artic_status = 2;
+    </select>
+
+    <select id="selectArticleById" resultMap="ArticleResult">
+        select a.artic_id,a.artic_title,a.artic_content,u.userID,u.name,a.artic_date from
+        article a inner join user u
+        on a.artic_author = u.userID
+        where a.artic_id = #{article_id};
     </select>
 </mapper>

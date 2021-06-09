@@ -12,4 +12,5 @@ public interface ArticleService {
     int deleteArticle(int artic_id);
     int updateArticle(Article article);
     List<ArticleDto> getUnapprovedArticles();
+    ArticleDto getOneArticle(int article_id);
 }

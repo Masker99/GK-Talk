@@ -13,4 +13,5 @@ public interface ArticleMapper {
     List<ArticleDto> selectAll();
     int updateOne(Article article);
     List<ArticleDto> selectUnapprovedArticles();
+    ArticleDto selectArticleById(int article_id);
 }

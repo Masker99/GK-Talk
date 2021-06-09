@@ -48,4 +48,9 @@ public class ArticleServiceImpl implements ArticleService {
     public List<ArticleDto> getUnapprovedArticles() {
         return articleMapper.selectUnapprovedArticles();
     }
+
+    @Override
+    public ArticleDto getOneArticle(int article_id){
+        return articleMapper.selectArticleById(article_id);
+    }
 }

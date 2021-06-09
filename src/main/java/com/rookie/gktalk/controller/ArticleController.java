@@ -1,5 +1,6 @@
 package com.rookie.gktalk.controller;
 
+import com.rookie.gktalk.dto.ArticleDto;
 import com.rookie.gktalk.pojo.Article;
 import com.rookie.gktalk.pojo.User;
 import com.rookie.gktalk.services.Impl.ArticleServiceImpl;
@@ -31,7 +32,7 @@ public class ArticleController {
     @PostMapping("/article")
     public Object postAnArticle(@RequestBody Map<String,String> body,
                                 HttpServletRequest request){
-        String token = request.getHeader("token");
+        String token = request.getHeader("Authorization");
         DataAssert.notEmpty(token,"获取token失败");
         User user = userService.getUserFromToken(token);
 
@@ -89,5 +90,12 @@ public class ArticleController {
         articleService.deleteArticle(artic_id);
 
         return new Result(200,"成功删除文章",null);
+    }
+
+    @GetMapping("/article/{article_id}")
+    public Object getArticle(@PathVariable("article_id") int artic_id){
+       ArticleDto article =  articleService.getOneArticle(artic_id);
+
+       return new Result(200,"成功获取文章",article);
     }
 }

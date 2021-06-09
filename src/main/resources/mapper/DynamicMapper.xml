@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rookie.gktalk.mapper.DynamicMapper">
+    <insert id="addDynamic" parameterType="dynamic">
+        insert into dynamic(auth_id,content,date,status)
+        values (#{author_id},#{content},#{date},#{status})
+    </insert>
+
+    <update id="deleteDynamic" parameterType="int">
+        update dynamic set status = 1 where id = #{dynamic_id}
+    </update>
+
+    <resultMap id="dynamicDtoResult" type="dynamicDto">
+        <id property="dynamic_id" column="id"/>
+        <result property="content" column="content"/>
+        <result property="date" column="date"/>
+        <association property="author" javaType="authorDto">
+            <id property="author_id" column="userID"/>
+            <result property="author_name" column="name"/>
+            <result property="author_picpath" column="picpath"/>
+        </association>
+    </resultMap>
+
+    <select id="getDynamics" resultMap="dynamicDtoResult">
+        select d.id,d.content,d.date,u.userID,u.name,u.picpath from
+        dynamic d inner join user u
+        on d.authid = u.userID
+        where d.status = 0;
+    </select>
+</mapper>
