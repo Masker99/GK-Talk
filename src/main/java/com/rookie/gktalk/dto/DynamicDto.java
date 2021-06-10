@@ -2,12 +2,11 @@ package com.rookie.gktalk.dto;
 
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
-public class DynamicDto {
+public class DynamicDto extends ContentDto{
     private int dynamic_id;
     private String content;
-    private Date date;
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+//    private Date date;
     private AuthorDto author;
 }

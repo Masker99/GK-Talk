@@ -26,7 +26,7 @@
     <select id="getDynamics" resultMap="dynamicDtoResult">
         select d.id,d.content,d.date,u.userID,u.name,u.picpath from
         dynamic d inner join user u
-        on d.authid = u.userID
+        on d.auth_id = u.userID
         where d.status = 0;
     </select>
 </mapper>

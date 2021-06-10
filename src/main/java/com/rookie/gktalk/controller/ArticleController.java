@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -56,7 +57,8 @@ public class ArticleController {
      */
     @GetMapping("/articles")
     public Object getArticleList(){
-        return new Result(200,"成功获取文章列表",articleService.getAllArticles());
+        List<ArticleDto> list = articleService.getAllArticles();
+        return new Result(200,"成功获取文章列表",list);
     }
 
     @UserLoginToken

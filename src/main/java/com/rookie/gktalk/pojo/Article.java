@@ -16,6 +16,6 @@ public class Article {
     @DateTimeFormat(pattern = "yyyy-mm-dd HH:mm:ss")
     private Date artic_date;
 
-    @Value("#{2}")
+    @Value("#{0}")
     private int artic_status;//0为正常，1为注销，2为未审核
 }

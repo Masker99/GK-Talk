@@ -1,20 +1,17 @@
 package com.rookie.gktalk.dto;
 
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.util.Date;
 
 @Data
-public class ArticleDto {
+public class ArticleDto extends ContentDto{
     private int article_id;
 
     private String article_title;
 
-    private AuthorDto article_author;
+    private AuthorDto author;
 
     private String article_content;
 
-    @DateTimeFormat(pattern = "yyyy-mm-dd HH:mm:ss")
-    private Date article_date;
+//    @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss",timezone = "GMT+8")
+//    private Date article_date;
 }

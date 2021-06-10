@@ -29,7 +29,6 @@ public class TokenUtil {
 
     public static Result verifyToken(User user,String token){
         JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(SECRET+user.getPassword())).build();
-        System.out.print(jwtVerifier.toString());
         try {
             DecodedJWT decodedJWT = jwtVerifier.verify(token);
         }catch (JWTVerificationException jwtVerificationException){
