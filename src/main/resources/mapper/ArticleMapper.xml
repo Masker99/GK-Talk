@@ -4,11 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rookie.gktalk.mapper.ArticleMapper">
     <insert id="addOne" parameterType="article">
-        insert article(artic_title,artic_content,artic_author,artic_date,artic_status) values (#{artic_title},#{artic_content},#{artic_author},#{artic_date},#{artic_status});
+        insert article(artic_title,artic_content,artic_author,artic_date,artic_status)
+        values (#{artic_title},#{artic_content},#{artic_author},#{artic_date},#{artic_status})
     </insert>
 
     <select id="selectOneByArticleID" parameterType="int" resultType="Article">
-        select * from article where artic_id = #{artic_id} and artic_status = 0;
+        select * from article where artic_id = #{artic_id} and artic_status = 0
     </select>
 
     <resultMap id="ArticleResult" type="ArticleDto">
@@ -27,7 +28,7 @@
         select a.artic_id,a.artic_title,a.artic_content,u.userID,u.name,a.artic_date,u.picpath from
         article a inner join user u
         on a.artic_id = u.userID
-        where artic_status = 0;
+        where artic_status = 0
     </select>
 
     <update id="updateOne" parameterType="Article">
@@ -38,20 +39,20 @@
             <if test="artic_date != null">artic_date = #{artic_date},</if>
             <if test="artic_status != null">artic_status = #{artic_status}</if>
         </set>
-        where artic_id = #{artic_id};
+        where artic_id = #{artic_id}
     </update>
 
     <select id="selectUnapprovedArticles" resultMap="ArticleResult">
         select a.artic_id,a.artic_title,a.artic_content,u.userID,u.name,a.artic_date from
         article a inner join user u
         on a.artic_author = u.userID
-        where artic_status = 2;
+        where artic_status = 2
     </select>
 
     <select id="selectArticleById" resultMap="ArticleResult">
         select a.artic_id,a.artic_title,a.artic_content,u.userID,u.name,a.artic_date from
         article a inner join user u
         on a.artic_author = u.userID
-        where a.artic_id = #{article_id};
+        where a.artic_id = #{article_id}
     </select>
 </mapper>

@@ -1,5 +1,6 @@
 package com.rookie.gktalk.controller;
 
+import com.github.pagehelper.PageHelper;
 import com.rookie.gktalk.dto.DynamicDto;
 import com.rookie.gktalk.pojo.Dynamic;
 import com.rookie.gktalk.pojo.User;
@@ -53,6 +54,7 @@ public class DynamicController {
 
     @GetMapping("/all")
     public Object getListDynamic(){
+        PageHelper.startPage(1,3);
         List<DynamicDto> dynamicList = dynamicService.getListOfDynamic();
 
         return new Result(200,"成功获取动态",dynamicList);

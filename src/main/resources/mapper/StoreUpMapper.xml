@@ -4,7 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rookie.gktalk.mapper.StoreUpMapper">
     <insert id="addOne" parameterType="storeUp">
-        insert into user_store(art_id,user_id,status) values (#{art_id},#{user_id},#{status})
+        insert into user_store(art_id,user_id,status)
+        values (#{art_id},#{user_id},#{status})
     </insert>
 
     <update id="cancel" parameterType="storeUp">

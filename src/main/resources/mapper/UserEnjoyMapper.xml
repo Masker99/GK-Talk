@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rookie.gktalk.mapper.UserEnjoyMapper">
     <insert id="addOneEnjoyment" parameterType="enjoyment">
-        insert into user_enjoy (user_id,art_id,status) values
-            (#{user_id},#{article_id},#{status})
+        insert into user_enjoy (user_id,art_id,status)
+        values (#{user_id},#{article_id},#{status})
     </insert>
 
     <update id="cancelEnjoyment">

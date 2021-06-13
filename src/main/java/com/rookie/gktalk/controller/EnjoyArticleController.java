@@ -19,11 +19,12 @@ public class EnjoyArticleController {
 
     @Autowired
     UserServiceImpl userService;
+
     @UserLoginToken
     @PostMapping("/enjoyment/{articleid}")
     public Object enjoy(@PathVariable("articleid")int articleId,
                         HttpServletRequest request){
-        String token = request.getHeader("token");
+        String token = request.getHeader("Authorization");
         User user = userService.getUserFromToken(token);
         int userId = user.getUserID();
 
@@ -33,10 +34,11 @@ public class EnjoyArticleController {
         return new Result(200,"点赞成功",null);
     }
 
+    @UserLoginToken
     @DeleteMapping("/enjoyment/{articleid}")
     public Object cancel(@PathVariable("articleid")int articleId,
                          HttpServletRequest request){
-        String token = request.getHeader("token");
+        String token = request.getHeader("Authorization");
         User user = userService.getUserFromToken(token);
         int userId = user.getUserID();
 

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rookie.gktalk.mapper.CommentMapper">
+    <insert id="addOneComment" parameterType="comment">
+        insert into comment(user_id,con_id,content,date,status)
+        values (#{user_id},#{content_id},#{content},#{date},#{status})
+    </insert>
+
+    <update id="deleteOneComment" parameterType="int">
+        update comment set status = 1 where com_id = #{commentID}
+    </update>
+
+    <select id="selectOneCommentByCommentID" resultType="comment">
+        select * from comment
+        where com_id = #{commentID}
+    </select>
+
+    <resultMap id="CommentListResult" type="CommentDto">
+        <id property="comment_id" column="com_id"/>
+        <result property="content_id" column="con_id"/>
+        <result property="content" column="content"/>
+        <result property="date" column="date"/>
+        <association property="authorDto" javaType="authorDto">
+            <id property="author_id" column="userID"/>
+            <result property="author_name" column="name"/>
+            <result property="author_picpath" column="picpath"/>
+        </association>
+    </resultMap>
+
+    <select id="getListCommentByContentID" resultMap="CommentListResult">
+        select * from comment c inner join user u
+        on c.user_id = u.userID
+        where status = 0 and con_id = #{contentID}
+    </select>
+</mapper>

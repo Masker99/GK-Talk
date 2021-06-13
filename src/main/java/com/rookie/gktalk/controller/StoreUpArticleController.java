@@ -24,21 +24,21 @@ public class StoreUpArticleController {
     @PostMapping("/storeup/{articleid}")
     public Object storeUp(@PathVariable("articleid")int articleId,
                           HttpServletRequest request){
-        String token = request.getHeader("token");
+        String token = request.getHeader("Authorization");
         User user = userService.getUserFromToken(token);
         int userId = user.getUserID();
 
         StoreUp storeUp = new StoreUp(articleId,userId);
         storeUpService.storeUp(storeUp);
 
-        return new Result(200,"收藏成功",null);
+        return new Result(200,"Authorization",null);
     }
 
     @UserLoginToken
     @DeleteMapping("/storeup/{articleid}")
     public Object cancel(@PathVariable("articleid")int articleId,
                          HttpServletRequest request){
-        String token = request.getHeader("token");
+        String token = request.getHeader("Authorization");
         User user = userService.getUserFromToken(token);
         int userId = user.getUserID();
 
