@@ -19,7 +19,7 @@ public class EmailController {
     @Autowired
     MailServiceImpl mailService;
 
-    @GetMapping("/invitation")
+    @PostMapping("/invitation")
     public Object postInvitationEmail(@RequestBody Map<String,String> RequestBody, HttpServletRequest request){
         String receiver = RequestBody.get("receiver");
 
@@ -40,7 +40,13 @@ public class EmailController {
         return new Result(200,"成功发送邮件",null);
     }
 
-    @GetMapping("/verification")
+    /**
+     * 发送验证码邮件
+     * @param body
+     * @param request
+     * @return
+     */
+    @PostMapping("/verification")
     public Object postVerificationEmail(@RequestBody Map<String,String> body,HttpServletRequest request){
         String receiver = body.get("email");
 
@@ -50,7 +56,7 @@ public class EmailController {
 
         HttpSession httpSession = request.getSession();
         httpSession.setAttribute("securityCode",securityCode);
-        httpSession.setAttribute("receiver",receiver);
+        httpSession.setAttribute("receiverMail",receiver);
 
         Calendar creationTime = TimeUtil.getCurrentTime();
         Calendar deadTime = TimeUtil.setEffectiveTime(creationTime,Calendar.MINUTE,30);

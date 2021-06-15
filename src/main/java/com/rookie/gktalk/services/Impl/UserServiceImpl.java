@@ -64,8 +64,8 @@ public class UserServiceImpl implements UserService {
         user.setEmail(email);
         user.setModify_time(new Date());
         user.setPicpath(pitcherPath);
-        user.setPassword(password);
-
+        //user.setPassword(password);
+        user.setPassword(new BCryptPasswordEncoder().encode(password));
         userMapper.updateUser(user);
 
         return selectUserByUserName(user.getName());

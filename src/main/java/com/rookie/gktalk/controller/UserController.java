@@ -121,9 +121,11 @@ public class UserController {
     }
 
     @PostMapping("/verifyUser")
-    public Object retrievePasswordFirstStep(@RequestParam("captcha")String captcha,
-                                            @RequestParam("email")String email,
-                                            HttpServletRequest httpServletRequest){
+    public Object retrievePasswordFirstStep(HttpServletRequest httpServletRequest,
+                                            @RequestBody Map<String,String> body){
+        String captcha = body.get("captcha");
+        String email = body.get("email");
+
         DataAssert.notEmpty(captcha,"请输入验证码！");
         DataAssert.notEmpty(email,"请输入注册的邮箱！");
 
@@ -148,5 +150,22 @@ public class UserController {
         }
 
         return new Result(200,"身份验证成功",null);
+    }
+
+    @PostMapping("/retrievePassword")
+    public Object retrievePasswordSecondStep(HttpServletRequest request,
+                                             @RequestBody Map<String,String> body){
+        String password = body.get("password");
+        String repassword = body.get("repassword");
+
+        if (!password.equals(repassword)){
+            throw new WebException("密码不一致！");
+        }
+
+        String mail = (String) request.getAttribute("receiverMail");
+        User user = userService.selectUser(null,mail,null);
+        userService.updateUser(user.getName(),null,null,null,password);
+
+        return new Result(200,"找回密码成功",null);
     }
 }

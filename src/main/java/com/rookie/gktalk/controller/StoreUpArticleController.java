@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/articles")
+@RequestMapping("/article")
 public class StoreUpArticleController {
     @Autowired
     private StoreUpServiceImpl storeUpService;
@@ -31,7 +31,7 @@ public class StoreUpArticleController {
         StoreUp storeUp = new StoreUp(articleId,userId);
         storeUpService.storeUp(storeUp);
 
-        return new Result(200,"Authorization",null);
+        return new Result(200,"收藏成功",null);
     }
 
     @UserLoginToken
