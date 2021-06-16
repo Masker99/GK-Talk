@@ -17,4 +17,14 @@
         select count (*) from user_enjoy
             where art_id = #{articleId} and status = 1
     </select>
+
+    <select id="selectOne">
+        select * from user_enjoy
+            where art_id = #{articleID} and user_id = #{userID} and status = 1
+    </select>
+
+    <select id="selectList">
+        select * from user_enjoy
+            where user_id = #{userID} and status = 1
+    </select>
 </mapper>

@@ -17,4 +17,8 @@
         select count (*) from user_store
             where art_id = #{art_id} and status = 1
     </select>
+
+    <select id="selectOne" parameterType="int">
+
+    </select>
 </mapper>

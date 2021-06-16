@@ -6,6 +6,8 @@ import com.rookie.gktalk.services.EnjoymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EnjoymentServiceImpl implements EnjoymentService {
     @Autowired
@@ -24,5 +26,15 @@ public class EnjoymentServiceImpl implements EnjoymentService {
     @Override
     public int getNumberOfEnjoyment(int articleID){
         return userEnjoyMapper.countNumForArticle(articleID);
+    }
+
+    @Override
+    public Enjoyment ifEnjoyment(int articleID,int userID){
+        return userEnjoyMapper.selectOne(articleID,userID);
+    }
+
+    @Override
+    public List<Enjoyment> getListOfEnjoymentByUserId(int userID){
+        return userEnjoyMapper.selectList(userID);
     }
 }

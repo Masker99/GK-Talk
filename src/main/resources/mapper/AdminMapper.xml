@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rookie.gktalk.mapper.AdminMapper">
+    <insert id="addAdmin" parameterType="admin">
+        insert into admin (email,password,date)
+        values (#{email},#{password},#{date})
+    </insert>
+
+    <select id="searchAdmin" resultType="admin">
+        select * from admin where id = #{admin_id}
+    </select>
+</mapper>

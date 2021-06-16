@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/article")
@@ -21,8 +23,8 @@ public class EnjoyArticleController {
     UserServiceImpl userService;
 
     @UserLoginToken
-    @PostMapping("/enjoyment/{articleid}")
-    public Object enjoy(@PathVariable("articleid")int articleId,
+    @PostMapping("/enjoyment/{articleId}")
+    public Object enjoy(@PathVariable("articleId")int articleId,
                         HttpServletRequest request){
         String token = request.getHeader("Authorization");
         User user = userService.getUserFromToken(token);
@@ -35,8 +37,8 @@ public class EnjoyArticleController {
     }
 
     @UserLoginToken
-    @DeleteMapping("/enjoyment/{articleid}")
-    public Object cancel(@PathVariable("articleid")int articleId,
+    @DeleteMapping("/enjoyment/{articleId}")
+    public Object cancel(@PathVariable("articleId")int articleId,
                          HttpServletRequest request){
         String token = request.getHeader("Authorization");
         User user = userService.getUserFromToken(token);
@@ -45,5 +47,38 @@ public class EnjoyArticleController {
         enjoymentService.cancelEnjoyment(userId,articleId);
 
         return new Result(200,"取消点赞",null);
+    }
+
+    @UserLoginToken
+    @GetMapping("/enjoyment/{articleId}")
+    public Object ifLiked(@PathVariable("articleId") int articleId,
+                          HttpServletRequest request){
+        String token = request.getHeader("Authorization");
+        User user = userService.getUserFromToken(token);
+        int userId = user.getUserID();
+
+        Enjoyment enjoyment = enjoymentService.ifEnjoyment(articleId,userId);
+        boolean ifLiked = false;
+        if(enjoyment != null){
+            if(enjoyment.getStatus() == 1){
+                ifLiked = true;
+            }
+        }
+        return new Result(200,"成功查询结果",ifLiked);
+    }
+
+    @GetMapping("/enjoyment/list")
+    public Object getListOfEnjoyment(HttpServletRequest request){
+        String token = request.getHeader("Authorization");
+        User user = userService.getUserFromToken(token);
+        int userId = user.getUserID();
+
+        List<Enjoyment> enjoymentList = enjoymentService.getListOfEnjoymentByUserId(userId);
+        List<Integer> resultList = new ArrayList<>();
+        for (Enjoyment e: enjoymentList) {
+            resultList.add(e.getArticle_id());
+        }
+
+        return new Result(200,"成功获取点赞列表",resultList);
     }
 }
