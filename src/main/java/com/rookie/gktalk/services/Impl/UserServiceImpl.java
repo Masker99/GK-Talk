@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 
         return selectUserByUserName(user.getName());
     }
-
+    
     @Override
     public User selectUser(String username,String email,String userID){
         return userMapper.selectUser(username,email,userID);

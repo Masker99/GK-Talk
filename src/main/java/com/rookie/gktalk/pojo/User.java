@@ -4,10 +4,12 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
     //用户ID
     private Integer userID;
 
