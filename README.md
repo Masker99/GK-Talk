@@ -48,3 +48,6 @@
 
 
 > 特别说明：该项目由于.properties文件中涉及私密信息，固没有把该文件push到远程仓库。
+
+Vue项目地址：
+https://github.com/Masker99/GT-Talk_Vue
