@@ -26,12 +26,14 @@ public class UserController {
         String userName = RequestBody.get("username");
         String password = RequestBody.get("password");
         String email = RequestBody.get("email");
-        String invitationCode = RequestBody.get("invitationCode");
+//        String invitationCode = RequestBody.get("invitationCode");
+        String verifyCode = RequestBody.get("verifyCode");
 
         DataAssert.notEmpty(userName,"请输入用户名!");
         DataAssert.notEmpty(password,"请输入密码！");
         DataAssert.notEmpty(email,"请输入注册邮箱！");
-        DataAssert.notEmpty(invitationCode,"请输入验证码!");
+//        DataAssert.notEmpty(invitationCode,"请输入邀请码!");
+        DataAssert.notEmpty(verifyCode,"请输入验证码！");
 
         DataAssert.isTrue(StringUtil.isValid(userName,StringUtil.USERNAME_REGEX),"请输入正确格式的用户名！");
         DataAssert.isTrue(StringUtil.isValid(password,StringUtil.PASSWORD_REGEX),"请输入正确的密码！");
@@ -41,20 +43,24 @@ public class UserController {
         DataAssert.isNull(userService.selectUserByEmail(email),"该邮件已被注册！");
 
         HttpSession httpSession = request.getSession();
-        if(!invitationCode.equalsIgnoreCase((String) httpSession.getAttribute("invitationCode"))){
-            throw new WebException("邀请码错误!");
+        String captcha = (String) httpSession.getAttribute("captcha");
+        if(!verifyCode.equalsIgnoreCase(captcha)){
+            throw new WebException("输入验证码错误！");
         }
-
-        String receiverMail = (String) httpSession.getAttribute("receiver");
-        if(!receiverMail.equals(email)){
-            throw new WebException("注册邮箱错误!");
-        }
-
-        Calendar deadTime = (Calendar) httpSession.getAttribute("deadTime");
-        Calendar currentTime = TimeUtil.getCurrentTime();
-        if(!TimeUtil.ifValid(currentTime,deadTime)){
-            throw new WebException("邀请码无效!");
-        }
+//        if(!invitationCode.equalsIgnoreCase((String) httpSession.getAttribute("invitationCode"))){
+//            throw new WebException("邀请码错误!");
+//        }
+//
+//        String receiverMail = (String) httpSession.getAttribute("receiver");
+//        if(!receiverMail.equals(email)){
+//            throw new WebException("注册邮箱错误!");
+//        }
+//
+//        Calendar deadTime = (Calendar) httpSession.getAttribute("deadTime");
+//        Calendar currentTime = TimeUtil.getCurrentTime();
+//        if(!TimeUtil.ifValid(currentTime,deadTime)){
+//            throw new WebException("邀请码无效!");
+//        }
 
         userService.addUser(userName,password,email);
 
