@@ -101,7 +101,7 @@ public class UserController {
             throw new WebException("输入密码错误！");
         }
 
-        String token = TokenUtil.getToken(user,"user");
+        String token = TokenUtil.getToken(user,"user",null);
 
         return new Result(200,"登陆成功",token);
     }

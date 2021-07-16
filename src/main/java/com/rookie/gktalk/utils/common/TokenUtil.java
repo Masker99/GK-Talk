@@ -16,13 +16,14 @@ public class TokenUtil {
         SECRET = secret;
     }
 
-    public static String getToken(User user,String role){
+    public static String getToken(User user,String role,String message){
         String token = "";
         setSecret(SECRET+user.getPassword());
 
         token = JWT.create()
                 .withAudience(user.getName())
                 .withClaim("role",role)
+                .withClaim("message",message)
                 .sign(Algorithm.HMAC256(SECRET));
 
         return token;
@@ -48,5 +49,11 @@ public class TokenUtil {
     public static String getRole(String token){
         String role = JWT.decode(token).getClaim("role").toString();
         return role;
+    }
+
+    public static String getMessage(String token){
+        String message = JWT.decode(token).getClaim("message").toString();
+
+        return message;
     }
 }
