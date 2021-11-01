@@ -5,7 +5,6 @@ import com.rookie.gktalk.pojo.Article;
 import com.rookie.gktalk.pojo.User;
 import com.rookie.gktalk.services.Impl.ArticleServiceImpl;
 import com.rookie.gktalk.services.Impl.UserServiceImpl;
-import com.rookie.gktalk.utils.annotation.UserLoginToken;
 import com.rookie.gktalk.utils.common.Result;
 import com.rookie.gktalk.utils.validate.DataAssert;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ public class ArticleController {
      * @param request
      * @return
      */
-    @UserLoginToken
+//    @UserLoginToken
     @PostMapping("/article")
     public Object postAnArticle(@RequestBody Map<String,String> body,
                                 HttpServletRequest request){
@@ -61,7 +60,7 @@ public class ArticleController {
         return new Result(200,"成功获取文章列表",list);
     }
 
-    @UserLoginToken
+//    @UserLoginToken
     @PutMapping("/article/{article_id}")
     public Object updateArticle(@RequestBody Map<String,String> body,
                                 @PathVariable("article_id") int artic_id){
@@ -86,7 +85,7 @@ public class ArticleController {
         return new Result(200,"文章成功更新",null);
     }
 
-    @UserLoginToken
+//    @UserLoginToken
     @DeleteMapping("/article/{article_id}")
     public Object deleteArticle(@PathVariable("article_id") int artic_id){
         articleService.deleteArticle(artic_id);

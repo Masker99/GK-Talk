@@ -6,7 +6,6 @@ import com.rookie.gktalk.pojo.Dynamic;
 import com.rookie.gktalk.pojo.User;
 import com.rookie.gktalk.services.Impl.DynamicServiceImpl;
 import com.rookie.gktalk.services.Impl.UserServiceImpl;
-import com.rookie.gktalk.utils.annotation.UserLoginToken;
 import com.rookie.gktalk.utils.common.Result;
 import com.rookie.gktalk.utils.validate.DataAssert;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ public class DynamicController {
     @Autowired
     UserServiceImpl userService;
 
-    @UserLoginToken
+//    @UserLoginToken
     @PostMapping("/")
     public Object postDynamic(@RequestBody Map<String,String> body,
                               HttpServletRequest request){
@@ -33,7 +32,6 @@ public class DynamicController {
         DataAssert.notNull(token,"获取token失败");
         User user =  userService.getUserFromToken(token);
         int author_id = user.getUserID();
-
         Dynamic dynamic = new Dynamic();
         dynamic.setAuthor_id(author_id);
         String content = body.get("content");

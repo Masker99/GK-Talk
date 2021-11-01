@@ -26,7 +26,7 @@ public class CommentController {
     @Autowired
     UserServiceImpl userService;
 
-    @UserLoginToken
+//    @UserLoginToken
     @PostMapping("/{contentID}")
     public Object postComment(@PathVariable("contentID") int content_id,
                               @RequestBody Map<String,String> body,

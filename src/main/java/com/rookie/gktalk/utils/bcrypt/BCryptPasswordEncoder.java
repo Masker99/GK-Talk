@@ -6,6 +6,10 @@ import org.apache.commons.logging.LogFactory;
 import java.security.SecureRandom;
 import java.util.regex.Pattern;
 
+/**
+ * BCrypt加密算法工具类，clone from Github
+ * @author Masker
+ */
 public class BCryptPasswordEncoder {
     private Pattern BCRYPT_PATTERN = Pattern.compile("\\A\\$2a?\\$\\d\\d\\$[./0-9A-Za-z]{53}");
     private final Log logger = LogFactory.getLog(getClass());

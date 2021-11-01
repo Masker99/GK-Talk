@@ -4,7 +4,6 @@ import com.rookie.gktalk.pojo.Enjoyment;
 import com.rookie.gktalk.pojo.User;
 import com.rookie.gktalk.services.Impl.EnjoymentServiceImpl;
 import com.rookie.gktalk.services.Impl.UserServiceImpl;
-import com.rookie.gktalk.utils.annotation.UserLoginToken;
 import com.rookie.gktalk.utils.common.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +21,7 @@ public class EnjoyArticleController {
     @Autowired
     UserServiceImpl userService;
 
-    @UserLoginToken
+//    @UserLoginToken
     @PostMapping("/enjoyment/{articleId}")
     public Object enjoy(@PathVariable("articleId")int articleId,
                         HttpServletRequest request){
@@ -36,7 +35,7 @@ public class EnjoyArticleController {
         return new Result(200,"点赞成功",null);
     }
 
-    @UserLoginToken
+//    @UserLoginToken
     @DeleteMapping("/enjoyment/{articleId}")
     public Object cancel(@PathVariable("articleId")int articleId,
                          HttpServletRequest request){
@@ -49,7 +48,7 @@ public class EnjoyArticleController {
         return new Result(200,"取消点赞",null);
     }
 
-    @UserLoginToken
+//    @UserLoginToken
     @GetMapping("/enjoyment/{articleId}")
     public Object ifLiked(@PathVariable("articleId") int articleId,
                           HttpServletRequest request){

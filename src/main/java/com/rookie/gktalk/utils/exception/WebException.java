@@ -1,7 +1,12 @@
 package com.rookie.gktalk.utils.exception;
 
+/**
+ * 自定义异常类
+ * @author Masker
+ */
 public class WebException extends RuntimeException{
     private final static long serialVersionUID = 1L;
+    //
     private int code;
     private String message;
 

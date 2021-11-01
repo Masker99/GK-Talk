@@ -27,7 +27,7 @@
     <select id="selectAll" resultMap="ArticleResult">
         select a.artic_id,a.artic_title,a.artic_content,u.userID,u.name,a.artic_date,u.picpath from
         article a inner join user u
-        on a.artic_id = u.userID
+        on a.artic_author = u.userID
         where artic_status = 0
     </select>
 

@@ -4,7 +4,6 @@ import com.rookie.gktalk.pojo.StoreUp;
 import com.rookie.gktalk.pojo.User;
 import com.rookie.gktalk.services.Impl.StoreUpServiceImpl;
 import com.rookie.gktalk.services.Impl.UserServiceImpl;
-import com.rookie.gktalk.utils.annotation.UserLoginToken;
 import com.rookie.gktalk.utils.common.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +19,7 @@ public class StoreUpArticleController {
     @Autowired
     private UserServiceImpl userService;
 
-    @UserLoginToken
+//    @UserLoginToken
     @PostMapping("/storeup/{articleid}")
     public Object storeUp(@PathVariable("articleid")int articleId,
                           HttpServletRequest request){
@@ -34,7 +33,7 @@ public class StoreUpArticleController {
         return new Result(200,"收藏成功",null);
     }
 
-    @UserLoginToken
+//    @UserLoginToken
     @DeleteMapping("/storeup/{articleid}")
     public Object cancel(@PathVariable("articleid")int articleId,
                          HttpServletRequest request){
